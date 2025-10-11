@@ -16,13 +16,15 @@ import java.util.List;
  */
 public class StandAlonetest {
     public static void main(String[] args) {
-        WebDriverManager.edgedriver().setup();
+//        WebDriverManager.edgedriver().setup();
+//        WebDriver driver=new EdgeDriver();
+        System.setProperty("webdriver.edge.driver","resources/msedgedriver.exe");
         WebDriver driver=new EdgeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://rahulshettyacademy.com/client");
 
-        driver.findElement(By.id("userEmail")).sendKeys("sumana@gamil.com");
-        driver.findElement(By.id("userPassword")).sendKeys("Suman@1");
+        driver.findElement(By.id("userEmail")).sendKeys("asuman@gmail.com");
+        driver.findElement(By.id("userPassword")).sendKeys("aSuman@1");
         driver.findElement(By.id("login")).click();
         List<WebElement> products = driver.findElements(By.cssSelector(".mb-0"));
 
