@@ -26,10 +26,15 @@ public class StandAlonetest {
         driver.findElement(By.id("userEmail")).sendKeys("asuman@gmail.com");
         driver.findElement(By.id("userPassword")).sendKeys("aSuman@1");
         driver.findElement(By.id("login")).click();
-        List<WebElement> products = driver.findElements(By.cssSelector(".mb-0"));
 
-        int n  = driver.findElements(By.cssSelector(".mb-0")).size();
-        System.out.println("Number "+n);
+        List<WebElement> products = driver.findElements(By.cssSelector(".mb-3"));
+
+       // int n  = driver.findElements(By.cssSelector(".mb-3")).size();
+       // System.out.println("Number "+n);
+
+        WebElement prod=  products.stream().filter(product->product.findElement(By.cssSelector("b")).getText().equals("ADIDAS ORIGINAL")).findFirst().orElse(null);
+
+        prod.findElement(By.cssSelector(".card-body button:last-of-type")).click();
     }
 
 }
