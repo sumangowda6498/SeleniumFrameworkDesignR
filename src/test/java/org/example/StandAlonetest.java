@@ -7,6 +7,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.List;
@@ -18,6 +22,8 @@ public class StandAlonetest {
     public static void main(String[] args) {
 //        WebDriverManager.edgedriver().setup();
 //        WebDriver driver=new EdgeDriver();
+        String productName="ADIDAS ORIGINAL";
+
         System.setProperty("webdriver.edge.driver","resources/msedgedriver.exe");
         WebDriver driver=new EdgeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -27,14 +33,27 @@ public class StandAlonetest {
         driver.findElement(By.id("userPassword")).sendKeys("aSuman@1");
         driver.findElement(By.id("login")).click();
 
+        WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(5));//Explicite wait
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".mb-3")));
         List<WebElement> products = driver.findElements(By.cssSelector(".mb-3"));
 
        // int n  = driver.findElements(By.cssSelector(".mb-3")).size();
        // System.out.println("Number "+n);
 
-        WebElement prod=  products.stream().filter(product->product.findElement(By.cssSelector("b")).getText().equals("ADIDAS ORIGINAL")).findFirst().orElse(null);
-
+        WebElement prod=  products.stream().filter(product->product.findElement(By.cssSelector("b")).getText().equals(productName)).findFirst().orElse(null);
         prod.findElement(By.cssSelector(".card-body button:last-of-type")).click();
+
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#toast-container")));
+        //ng-animating
+        //wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".ng-animating")));
+        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.cssSelector(".ng-animating"))));
+
+        driver.findElement(By.cssSelector("[routerlink*='cart']")).click();
+
+        List<WebElement> cartProducts=driver.findElements(By.cssSelector(".cartSectin h3"));
+        Boolean match=cartProducts.stream().anyMatch(cartProduct->cartProduct.getText().equalsIgnoreCase(productName));
+       //Assert.assertTrue(match);
+        driver.findElement(By.cssSelector(".totalRow button")).click();
     }
 
 }
