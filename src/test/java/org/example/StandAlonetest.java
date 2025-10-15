@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -19,7 +20,7 @@ import java.util.List;
  * Unit test for simple App.
  */
 public class StandAlonetest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 //        WebDriverManager.edgedriver().setup();
 //        WebDriver driver=new EdgeDriver();
         String productName="ADIDAS ORIGINAL";
@@ -27,6 +28,7 @@ public class StandAlonetest {
         System.setProperty("webdriver.edge.driver","resources/msedgedriver.exe");
         WebDriver driver=new EdgeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
         driver.get("https://rahulshettyacademy.com/client");
 
         driver.findElement(By.id("userEmail")).sendKeys("asuman@gmail.com");
@@ -54,6 +56,20 @@ public class StandAlonetest {
         Boolean match=cartProducts.stream().anyMatch(cartProduct->cartProduct.getText().equalsIgnoreCase(productName));
        //Assert.assertTrue(match);
         driver.findElement(By.cssSelector(".totalRow button")).click();
+
+
+        Actions a=new Actions(driver);
+        a.sendKeys(driver.findElement(By.cssSelector("[placeholder='Select Country']")),"india").click().build().perform();
+Thread.sleep(2000);
+
+
+        driver.findElement(By.xpath("//button[contains(@class,'ta-item')])[2]")).click();
+        driver.findElement(By.cssSelector(".action_submit")).click();
+
+        String confirmMsg=driver.findElement(By.cssSelector(".hero-primary")).getText();
+        Assert.assertTrue(confirmMsg.equalsIgnoreCase("THANKYOU FOR THE ORDER"));
+
+
     }
 
 }
