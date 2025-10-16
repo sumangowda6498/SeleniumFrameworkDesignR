@@ -60,14 +60,15 @@ public class StandAlonetest {
 
         Actions a=new Actions(driver);
         a.sendKeys(driver.findElement(By.cssSelector("[placeholder='Select Country']")),"india").click().build().perform();
-Thread.sleep(2000);
+        Thread.sleep(2000);
 
 
-        driver.findElement(By.xpath("//button[contains(@class,'ta-item')])[2]")).click();
-        driver.findElement(By.cssSelector(".action_submit")).click();
+        driver.findElement(By.xpath("//button[contains(@class,'ta-item')][2]")).click();
+        driver.findElement(By.xpath("//a[@class='btnn action__submit ng-star-inserted']")).click();
 
         String confirmMsg=driver.findElement(By.cssSelector(".hero-primary")).getText();
-        Assert.assertTrue(confirmMsg.equalsIgnoreCase("THANKYOU FOR THE ORDER"));
+        System.out.println(confirmMsg);
+        Assert.assertTrue(confirmMsg.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
 
 
     }
