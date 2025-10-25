@@ -8,13 +8,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import rahulshettyAcademy.AbstractComponent.AbstarctComponent;
 
 import java.util.List;
 
-public class ProductCatalogPage {
+public class ProductCatalogPage extends AbstarctComponent {
     WebDriver driver;
 
     public ProductCatalogPage(WebDriver driver) {
+        super(driver);
         //initialization
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -26,6 +28,13 @@ public class ProductCatalogPage {
 //List<WebElement> products=driver.findElements(By.cssSelector(".mb-3"));
     @FindBy(css = ".mb-3")
     List<WebElement> products;
+
+    By productBy=By.cssSelector(".mb-3");
+
+    public List<WebElement> getProductList(){
+        waitForElementToAprar(productBy);
+        return products;
+    }
 
 
 }

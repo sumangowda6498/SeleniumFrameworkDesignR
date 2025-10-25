@@ -8,10 +8,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import rahulshettyAcademy.AbstractComponent.AbstarctComponent;
 
-public class LandingPage {
+public class LandingPage extends AbstarctComponent {
     WebDriver driver;
     public LandingPage(WebDriver driver){
+        super(driver);
         //initialization
         this.driver=driver;
 

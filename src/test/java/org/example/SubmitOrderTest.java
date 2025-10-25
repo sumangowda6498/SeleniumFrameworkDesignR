@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import rahulshettyAcademy.LandingPage;
+import rahulshettyAcademy.ProductCatalogPage;
 
 import java.time.Duration;
 import java.util.List;
@@ -35,9 +36,11 @@ public class SubmitOrderTest {
 //        driver.findElement(By.id("userPassword")).sendKeys("aSuman@1");
 //        driver.findElement(By.id("login")).click();
 
-        WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(5));//Explicite wait
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".mb-3")));
-        List<WebElement> products = driver.findElements(By.cssSelector(".mb-3"));
+//        WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(5));//Explicite wait
+//        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".mb-3")));
+//        List<WebElement> products = driver.findElements(By.cssSelector(".mb-3"));
+        ProductCatalogPage productCatalogPage=new ProductCatalogPage(driver);
+        List<WebElement>products=productCatalogPage.getProductList();
 
        // int n  = driver.findElements(By.cssSelector(".mb-3")).size();
        // System.out.println("Number "+n);
