@@ -39,21 +39,26 @@ public class SubmitOrderTest {
 //        WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(5));//Explicite wait
 //        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".mb-3")));
 //        List<WebElement> products = driver.findElements(By.cssSelector(".mb-3"));
+
+
         ProductCatalogPage productCatalogPage=new ProductCatalogPage(driver);
         List<WebElement>products=productCatalogPage.getProductList();
+       productCatalogPage.addProductToCart(productName);
+
 
        // int n  = driver.findElements(By.cssSelector(".mb-3")).size();
        // System.out.println("Number "+n);
+//
+//        WebElement prod=  products.stream().filter(product->product.findElement(By.cssSelector("b")).getText().equals(productName)).findFirst().orElse(null);
+//        prod.findElement(By.cssSelector(".card-body button:last-of-type")).click();
 
-        WebElement prod=  products.stream().filter(product->product.findElement(By.cssSelector("b")).getText().equals(productName)).findFirst().orElse(null);
-        prod.findElement(By.cssSelector(".card-body button:last-of-type")).click();
-
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#toast-container")));
+        //wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#toast-container")));
         //ng-animating
         //wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".ng-animating")));
-        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.cssSelector(".ng-animating"))));
+       // wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.cssSelector(".ng-animating"))));
 
-        driver.findElement(By.cssSelector("[routerlink*='cart']")).click();
+       // driver.findElement(By.cssSelector("[routerlink*='cart']")).click();
+        productCatalogPage.gotoCartPage();
 
         List<WebElement> cartProducts=driver.findElements(By.cssSelector(".cartSectin h3"));
         Boolean match=cartProducts.stream().anyMatch(cartProduct->cartProduct.getText().equalsIgnoreCase(productName));
