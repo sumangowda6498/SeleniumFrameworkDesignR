@@ -19,6 +19,17 @@ public class CartPage extends AbstarctComponent {
 
     public CartPage(WebDriver driver) {
         super(driver);
-        this.driver=driver
+        this.driver=driver;
     }
+
+    public Boolean VerifyProductDisplay(String productName){
+        Boolean match =productTitles.stream().anyMatch(product->product.getText().equalsIgnoreCase(productName));
+        return match;
+    }
+
+    public CheckoutPage goToCheckout(){
+        checkoutEle.click();
+        return new CheckoutPage();
+    }
+
 }

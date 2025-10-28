@@ -9,6 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import rahulshettyAcademy.CartPage;
 import rahulshettyAcademy.LandingPage;
 import rahulshettyAcademy.ProductCatalogPage;
 
@@ -31,7 +32,7 @@ public class SubmitOrderTest {
        // driver.get("https://rahulshettyacademy.com/client");//landingPage.goTo();
           LandingPage landingPage=new LandingPage(driver);
           landingPage.goTo();//launchURL
-          landingPage.loginApplication("asuman@gmail.com","aSuman@1");//enter usrname, password and click login
+        ProductCatalogPage productCatalogPage= landingPage.loginApplication("asuman@gmail.com","aSuman@1");//enter usrname, password and click login
 //        driver.findElement(By.id("userEmail")).sendKeys("asuman@gmail.com");
 //        driver.findElement(By.id("userPassword")).sendKeys("aSuman@1");
 //        driver.findElement(By.id("login")).click();
@@ -41,7 +42,7 @@ public class SubmitOrderTest {
 //        List<WebElement> products = driver.findElements(By.cssSelector(".mb-3"));
 
 
-        ProductCatalogPage productCatalogPage=new ProductCatalogPage(driver);
+        //ProductCatalogPage productCatalogPage=new ProductCatalogPage(driver);
         List<WebElement>products=productCatalogPage.getProductList();
        productCatalogPage.addProductToCart(productName);
 
@@ -58,10 +59,16 @@ public class SubmitOrderTest {
        // wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.cssSelector(".ng-animating"))));
 
        // driver.findElement(By.cssSelector("[routerlink*='cart']")).click();
-        productCatalogPage.gotoCartPage();
+        CartPage cartPage= productCatalogPage.gotoCartPage();
 
-        List<WebElement> cartProducts=driver.findElements(By.cssSelector(".cartSectin h3"));
-        Boolean match=cartProducts.stream().anyMatch(cartProduct->cartProduct.getText().equalsIgnoreCase(productName));
+
+//        List<WebElement> cartProducts=driver.findElements(By.cssSelector(".cartSectin h3"));
+//        Boolean match=cartProducts.stream().anyMatch(cartProduct->cartProduct.getText().equalsIgnoreCase(productName));
+       // CartPage cartPage=new CartPage(driver);
+        Boolean match=cartPage.VerifyProductDisplay(productName);
+        Assert.assertTrue(match);
+        cartPage.goToCheckout();
+
        //Assert.assertTrue(match);
         driver.findElement(By.cssSelector(".totalRow button")).click();
 

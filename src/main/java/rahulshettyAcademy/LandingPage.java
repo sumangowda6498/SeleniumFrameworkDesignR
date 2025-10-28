@@ -34,10 +34,12 @@ public class LandingPage extends AbstarctComponent {
     WebElement login;
 
 //Action method 159
-    public void loginApplication(String email,String password){
+    public ProductCatalogPage loginApplication(String email,String password){
         userEmail.sendKeys(email);
         userPassowrdEle.sendKeys(password);
         login.click();
+        ProductCatalogPage productCatalogPage=new ProductCatalogPage(driver);
+        return productCatalogPage;
     }
 
     public void goTo(){
