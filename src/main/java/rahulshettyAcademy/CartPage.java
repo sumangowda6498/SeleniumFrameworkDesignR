@@ -10,7 +10,7 @@ import java.util.List;
 public class CartPage extends AbstarctComponent {
     WebDriver driver;
 
-    @FindBy(css = ".tatalRow button")
+    @FindBy(xpath = "/html/body/app-root/app-profile/div/div[3]/ul/li[3]/button")
     WebElement checkoutEle;
 
     @FindBy(css=".cartSection h3")
@@ -29,7 +29,7 @@ public class CartPage extends AbstarctComponent {
 
     public CheckoutPage goToCheckout(){
         checkoutEle.click();
-        return new CheckoutPage();
+        return new CheckoutPage(driver);
     }
 
 }

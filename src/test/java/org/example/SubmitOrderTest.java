@@ -9,9 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import rahulshettyAcademy.CartPage;
-import rahulshettyAcademy.LandingPage;
-import rahulshettyAcademy.ProductCatalogPage;
+import rahulshettyAcademy.*;
 
 import java.time.Duration;
 import java.util.List;
@@ -43,7 +41,7 @@ public class SubmitOrderTest {
 
 
         //ProductCatalogPage productCatalogPage=new ProductCatalogPage(driver);
-        List<WebElement>products=productCatalogPage.getProductList();
+        List<WebElement> products=productCatalogPage.getProductList();
        productCatalogPage.addProductToCart(productName);
 
 
@@ -67,21 +65,23 @@ public class SubmitOrderTest {
        // CartPage cartPage=new CartPage(driver);
         Boolean match=cartPage.VerifyProductDisplay(productName);
         Assert.assertTrue(match);
-        cartPage.goToCheckout();
+        CheckoutPage checkoutPage=cartPage.goToCheckout();
 
        //Assert.assertTrue(match);
-        driver.findElement(By.cssSelector(".totalRow button")).click();
+       // driver.findElement(By.cssSelector(".totalRow button")).click();
 
 
-        Actions a=new Actions(driver);
-        a.sendKeys(driver.findElement(By.cssSelector("[placeholder='Select Country']")),"india").click().build().perform();
-        Thread.sleep(2000);
+//        Actions a=new Actions(driver);
+//        a.sendKeys(driver.findElement(By.cssSelector("[placeholder='Select Country']")),"india").click().build().perform();
+//        Thread.sleep(2000);
+        checkoutPage.setSelectCountry("india");
+        ConfirmationPage confirmationPage =checkoutPage.submitOrder();
 
 
-        driver.findElement(By.xpath("//button[contains(@class,'ta-item')][2]")).click();
-        driver.findElement(By.xpath("//a[@class='btnn action__submit ng-star-inserted']")).click();
+//        driver.findElement(By.xpath("//button[contains(@class,'ta-item')][2]")).click();
+//        driver.findElement(By.xpath("//a[@class='btnn action__submit ng-star-inserted']")).click();
 
-        String confirmMsg=driver.findElement(By.cssSelector(".hero-primary")).getText();
+        String confirmMsg=confirmationPage.getConformationMesssage();
         System.out.println(confirmMsg);
         Assert.assertTrue(confirmMsg.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
 

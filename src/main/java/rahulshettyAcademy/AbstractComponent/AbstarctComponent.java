@@ -23,8 +23,8 @@ public class AbstarctComponent {
 
     public CartPage gotoCartPage(){
         cartHeader.click();
-        CartPage cartPage=new CartPage(driver);
-        return cartPage;
+       // CartPage cartPage=new CartPage(driver);
+        return new CartPage(driver);
     }
 
 
