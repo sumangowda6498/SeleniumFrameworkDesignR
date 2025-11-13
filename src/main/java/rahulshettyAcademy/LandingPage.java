@@ -3,7 +3,6 @@
 
 package rahulshettyAcademy;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,6 +32,8 @@ public class LandingPage extends AbstarctComponent {
     @FindBy(id="login")
     WebElement login;
 
+    @FindBy(css = "[class*='flyInOut']")
+    WebElement errorSms;
 //Action method 159
     public ProductCatalogPage loginApplication(String email,String password){
         userEmail.sendKeys(email);
@@ -40,6 +41,11 @@ public class LandingPage extends AbstarctComponent {
         login.click();
         ProductCatalogPage productCatalogPage=new ProductCatalogPage(driver);
         return productCatalogPage;
+    }
+
+    public String getErrorMessage(){
+        waitforWebElementToappear(errorSms);
+      return  errorSms.getText();
     }
 
     public void goTo(){

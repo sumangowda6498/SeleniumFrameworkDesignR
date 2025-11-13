@@ -40,4 +40,11 @@ public class AbstarctComponent {
 
     }
 
+    public void waitforWebElementToappear(WebElement ele){
+        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(5));//Explicite wait
+
+        wait.until(ExpectedConditions.visibilityOf(ele));
+
+    }
+
 }
