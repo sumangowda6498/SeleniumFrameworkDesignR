@@ -13,7 +13,8 @@ import java.util.Properties;
 
 public class BaseTest {
 public WebDriver driver;
-public LandingPage landingPage;
+public LandingPage landingPage=new LandingPage(driver);
+
     public WebDriver initializeDriver() throws IOException {
         //Properties class
         Properties prop=new Properties();
