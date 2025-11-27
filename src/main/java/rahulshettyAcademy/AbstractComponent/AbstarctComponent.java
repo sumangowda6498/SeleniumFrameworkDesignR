@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import rahulshettyAcademy.CartPage;
+import rahulshettyAcademy.OrderPage;
 
 import java.time.Duration;
 
@@ -21,10 +22,20 @@ public class AbstarctComponent {
     @FindBy(css="[routerlink*='cart']")
     WebElement cartHeader;
 
+@FindBy(css="[routerlink*='myorders']")
+WebElement ordersHeader;
+
     public CartPage gotoCartPage(){
         cartHeader.click();
        // CartPage cartPage=new CartPage(driver);
         return new CartPage(driver);
+    }
+
+    public OrderPage gotoOrdersPage(){
+        ordersHeader.click();
+        // CartPage cartPage=new CartPage(driver);
+        OrderPage orderPage=new OrderPage(driver);
+        return orderPage;
     }
 
 

@@ -17,6 +17,8 @@ import java.util.List;
  * Unit test for simple App.
  */
 public class SubmitOrderTestCopy extends BaseTest {
+    String productName="ADIDAS ORIGINAL";
+
 
     @Test
     public void submitorder() throws IOException, InterruptedException {
@@ -42,8 +44,7 @@ public class SubmitOrderTestCopy extends BaseTest {
 //        System.out.println(confirmMsg);
 //        Assert.assertTrue(confirmMsg.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
         //----------------------------------------------------------------------------------//
-        String productName="ADIDAS ORIGINAL";
-
+        System.out.println("___________________________________________\n Book Product Test1");
         System.setProperty("webdriver.edge.driver","resources/msedgedriver.exe");
         WebDriver driver=new EdgeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -68,7 +69,23 @@ public class SubmitOrderTestCopy extends BaseTest {
         System.out.println(confirmMsg);
         Assert.assertTrue(confirmMsg.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
 
-
     }
+    //To Verify Adidas original Coat 3 displaying in orders page
+@Test(dependsOnMethods = {"submitorder"})
+    public void OredrHistoryTest(){
+    System.out.println("___________________________________________\n verify product in orders Test2");
+
+    System.setProperty("webdriver.edge.driver","resources/msedgedriver.exe");
+    WebDriver driver=new EdgeDriver();
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    driver.manage().window().maximize();
+    LandingPage landingPage=new LandingPage(driver);
+    landingPage.goTo();//launchURL
+    ProductCatalogPage productCatalogPage= landingPage.loginApplication("asuman@gmail.com","aSuman@1");    OrderPage orderPage=productCatalogPage.gotoOrdersPage();
+    Assert.assertTrue(orderPage.verifyOrderDisplay(productName));
+    System.out.println("___________________________________________\n verify product in orders Test2 FINISHED");
+
+}
+
 
 }
