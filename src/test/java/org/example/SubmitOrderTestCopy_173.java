@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Unit test for simple App.
  */
-public class SubmitOrderTestCopy extends BaseTest {
+public class SubmitOrderTestCopy_173 extends BaseTest {
         String productName="ADIDAS ORIGINAL";
 
 
