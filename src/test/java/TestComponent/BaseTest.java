@@ -1,14 +1,21 @@
 package TestComponent;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import rahulshettyAcademy.LandingPage;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
 public class BaseTest {
@@ -37,11 +44,21 @@ else {
     }
 
     @BeforeMethod
-    public LandingPage launchApplication() throws IOException{
+    public LandingPage launchApplication(String filePath) throws IOException{
         driver= initializeDriver();
         LandingPage landingPage=new LandingPage(driver);
         landingPage.goTo();
         return landingPage;
+    }
+    public List<HashMap<String,String>> getJsonDataMap(String s) throws IOException {
+        //reading json to string
+        String jsonContent= FileUtils.readFileToString(new File(s), StandardCharsets.UTF_8);
+
+        //string to hashMap
+        ObjectMapper mapper=new ObjectMapper();
+        List<HashMap<String,String>> data= mapper.readValue(jsonContent, new TypeReference<List<HashMap<String, String>>>() {});
+
+        return data;
     }
 
     @AfterMethod

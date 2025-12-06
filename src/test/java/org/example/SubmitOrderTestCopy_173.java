@@ -132,18 +132,18 @@ public void submitorderParameter171(String email,String password,String productN
 
     //#172 Agenda of implementing Parameterization into Test with TestNG DataProvider with Hash map
     @DataProvider
-    public Object[][] getDatas(){
-        HashMap<String,String> map=new HashMap<>();
-        map.put("email", "asuman@gmail.com");
-        map.put("password","aSuman@1");
-        map.put("product","ADIDAS ORIGINAL");
-
-        HashMap<String,String> map1=new HashMap<>();
-        map1.put("email", "asuman@gmail.com");
-        map1.put("password","aSuman@1");
-        map1.put("product","ZARA COAT 3");
-
-        return new Object[][] {{map},{map1}};
+    public Object[][] getDatas() throws IOException {
+//        HashMap<String,String> map=new HashMap<>(); 172 codes commmented
+//        map.put("email", "asuman@gmail.com");
+//        map.put("password","aSuman@1");
+//        map.put("product","ADIDAS ORIGINAL");
+//
+//        HashMap<String,String> map1=new HashMap<>();
+//        map1.put("email", "asuman@gmail.com");
+//        map1.put("password","aSuman@1");
+//        map1.put("product","ZARA COAT 3");
+List<HashMap<String,String>> data =getJsonDataMap(System.getProperty("user.dir")+"//src//test//java//Data//PurchaseOrder_173.json");
+        return new Object[][] {{data.get(0)},{data.get(1)}};
     }
 
     @Test(dataProvider = "getDatas", groups={"Purchase"})
