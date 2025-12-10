@@ -2,6 +2,9 @@ package org.example;
 
 
 import TestComponent.BaseTest;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -10,6 +13,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import rahulshettyAcademy.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
@@ -174,5 +178,16 @@ List<HashMap<String,String>> data =getJsonDataMap(System.getProperty("user.dir")
         Assert.assertTrue(confirmMsg.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
 
     }
+
+    //174 create SS utility in Base test class for catching failed test
+    public void getScreenshot(String testCaseName) throws IOException {
+        TakesScreenshot ts=(TakesScreenshot)driver;
+        File source=ts.getScreenshotAs(OutputType.FILE);
+        File file=new File(System.getProperty("user.dir")+"//reports//"+testCaseName+".png");
+        FileUtils.copyFile(source,file);
+    }
+
+    //Extent Reports
+
 
 }
