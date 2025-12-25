@@ -1,8 +1,11 @@
 package TestComponent;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import rahulshettyAcademy.LandingPage;
@@ -18,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
-public class BaseTest {
+public abstract class BaseTest {
 public WebDriver driver;
 public LandingPage landingPage=new LandingPage(driver);
 
@@ -60,10 +63,21 @@ else {
 
         return data;
     }
+//Take Screenshot
+    public String getScreenshot(String testCaseName,WebDriver driver) throws IOException {
+        TakesScreenshot ts=(TakesScreenshot)driver;
+        File source=ts.getScreenshotAs(OutputType.FILE);
+        File file=new File(System.getProperty("user.dir")+"//reports//"+testCaseName+".png");
+        FileUtils.copyFile(source,file);
+        return System.getProperty("user.dir")+"//reports//"+testCaseName+".png";
+    }
+
 
     @AfterMethod
     public void tearDown() throws InterruptedException {
         Thread.sleep(3000);
         driver.close();
     }
+
+    public abstract void onTestFinish(ITestResult result);
 }
