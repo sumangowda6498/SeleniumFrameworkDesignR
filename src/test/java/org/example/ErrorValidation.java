@@ -3,6 +3,7 @@ package org.example;
 import TestComponent.BaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.Test;
 import rahulshettyAcademy.CartPage;
 import rahulshettyAcademy.ProductCatalogPage;
@@ -16,7 +17,7 @@ public class ErrorValidation extends BaseTest {
         String productName="ADIDAS ORIGINAL";
 
        landingPage.loginApplication("asuman@gmail.com","aSuman21");//enter usrname, password and click login
-            Assert.assertEquals("Incorrect email or password.",landingPage.getErrorMessage());
+            Assert.assertEquals("Incorrect email  password.",landingPage.getErrorMessage());
     }
 
     @Test
@@ -34,6 +35,11 @@ public class ErrorValidation extends BaseTest {
 
         Boolean match=cartPage.VerifyProductDisplay("Nike");
         Assert.assertFalse(match);
+
+    }
+
+    @Override
+    public void onTestFinish(ITestResult result) {
 
     }
 }

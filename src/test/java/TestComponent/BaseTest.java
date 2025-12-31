@@ -25,34 +25,36 @@ public abstract class BaseTest {
 public WebDriver driver;
 public LandingPage landingPage=new LandingPage(driver);
 
-    public WebDriver initializeDriver() throws IOException {
-        //Properties class
-        Properties prop=new Properties();
-        FileInputStream fis=new FileInputStream(System.getProperty("user.dir")+"//src//test//java//resources//GlobalData.properties");
-        prop.load(fis);
-        String browserName=prop.getProperty("browser");
-        System.out.println(browserName);
+        public WebDriver initializeDriver() throws IOException {
+            //Properties class
+            Properties prop=new Properties();
+            FileInputStream fis=new FileInputStream(System.getProperty("user.dir")+"//src//test//java//resources//GlobalData.properties");
+            prop.load(fis);
+            String browserName=prop.getProperty("browser");
+            System.out.println(browserName);
 
-if (browserName.equalsIgnoreCase("edge")) {
-    System.setProperty("webdriver.edge.driver", "resources/msedgedriver.exe");
-    WebDriver driver = new EdgeDriver();
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    driver.manage().window().maximize();
-    return driver;
-}
-else {
-    System.out.println("browser details not available");
-}
-        return null;
-    }
+                if (browserName.equalsIgnoreCase("edge")) {
+                    System.setProperty("webdriver.edge.driver", "resources/msedgedriver.exe");
+                    WebDriver driver = new EdgeDriver();
+                    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+                    driver.manage().window().maximize();
+                    return driver;
+                }
+                else {
+                    System.out.println("browser details not available");
+                }
+            return null;
+        }
 
     @BeforeMethod
-    public LandingPage launchApplication(String filePath) throws IOException{
+    public LandingPage launchApplication() throws IOException{ //String filePath
         driver= initializeDriver();
         LandingPage landingPage=new LandingPage(driver);
         landingPage.goTo();
         return landingPage;
     }
+
+
     public List<HashMap<String,String>> getJsonDataMap(String s) throws IOException {
         //reading json to string
         String jsonContent= FileUtils.readFileToString(new File(s), StandardCharsets.UTF_8);

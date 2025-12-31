@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import rahulshettyAcademy.*;
@@ -175,4 +176,8 @@ public void submitorderParameter171(String email,String password,String productN
 
     }
 
+    @Override
+    public void onTestFinish(ITestResult result) {
+
+    }
 }

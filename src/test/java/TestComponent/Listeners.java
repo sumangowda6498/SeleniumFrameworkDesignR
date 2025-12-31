@@ -25,7 +25,7 @@ test.log(Status.PASS," Test is Passed");
     }
 
     @Override
-    public void onTestFailure(ITestResult result){
+    public void onTestFailure(ITestResult result){ 
         //Take Screenshot
         test.log(Status.FAIL,"Test is Failed:---log below");
         test.fail(result.getThrowable());

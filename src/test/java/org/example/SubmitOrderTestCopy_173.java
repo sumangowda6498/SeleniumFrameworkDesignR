@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import rahulshettyAcademy.*;
@@ -185,6 +186,11 @@ List<HashMap<String,String>> data =getJsonDataMap(System.getProperty("user.dir")
         File source=ts.getScreenshotAs(OutputType.FILE);
         File file=new File(System.getProperty("user.dir")+"//reports//"+testCaseName+".png");
         FileUtils.copyFile(source,file);
+    }
+
+    @Override
+    public void onTestFinish(ITestResult result) {
+
     }
 
     //Extent Reports
