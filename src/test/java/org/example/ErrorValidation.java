@@ -1,6 +1,7 @@
 package org.example;
 
 import TestComponent.BaseTest;
+import TestComponent.Retry_179;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class ErrorValidation extends BaseTest {
-    @Test
+    @Test(groups = {"ErrorHandling"},retryAnalyzer = Retry_179.class)
     public void submitErrorOrder(){
         String productName="ADIDAS ORIGINAL";
 

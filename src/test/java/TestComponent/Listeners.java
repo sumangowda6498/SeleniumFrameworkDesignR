@@ -14,9 +14,12 @@ public class Listeners extends BaseTest implements ITestListener {
     String filePath;
     ExtentTest test;
 ExtentReports extent= ExtentReporterNG176.config();
+ThreadLocal extentTest=new ThreadLocal<>();//Tread safex
     @Override
     public void onTestStart(ITestResult result){
-       test=  extent.createTest(result.getMethod().getMethodName());
+
+        test=  extent.createTest(result.getMethod().getMethodName());
+        extentTest.set(test);//unique Thread id (ErrorValidationTest)->test
     }
 
     @Override
@@ -25,7 +28,8 @@ test.log(Status.PASS," Test is Passed");
     }
 
     @Override
-    public void onTestFailure(ITestResult result){ 
+    public void onTestFailure(ITestResult result){
+       // extentTest.get().fail(result.getThrowable());
         //Take Screenshot
         test.log(Status.FAIL,"Test is Failed:---log below");
         test.fail(result.getThrowable());
