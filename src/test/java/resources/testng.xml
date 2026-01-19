@@ -5,15 +5,13 @@
     <listeners>
         <listener class-name="TestComponent.Listeners"/>
     </listeners>
-    <test verbose="2" preserve-order="true" name="C:/Users/suman/IdeaProjects/SeleniumFrameworkDesing">
+    <test name="Error Validation Tests" verbose="2" preserve-order="true" >
         <classes>
-            <class name="org.example.ErrorValidation">
-            </class>
-
+            <class name="org.example.ErrorValidation"/>
 
         </classes>
     </test>
-    <test name="SubmitOrder">
+    <test name="Submit Order Test">
         <classes>
             <class name="org.example.SubmitOrderTestCopy">
             </class>

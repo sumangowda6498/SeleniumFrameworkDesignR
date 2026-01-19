@@ -30,7 +30,8 @@ public LandingPage landingPage=new LandingPage(driver);
             Properties prop=new Properties();
             FileInputStream fis=new FileInputStream(System.getProperty("user.dir")+"//src//test//java//resources//GlobalData.properties");
             prop.load(fis);
-            String browserName=prop.getProperty("browser");
+           // String browserName=prop.getProperty("browser");
+            String browserName=prop.getProperty("browser")!=null? System.getProperty("browser"):prop.getProperty("browser");
             System.out.println(browserName);
 
                 if (browserName.equalsIgnoreCase("edge")) {
