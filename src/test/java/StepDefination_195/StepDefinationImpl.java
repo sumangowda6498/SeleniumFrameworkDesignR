@@ -2,11 +2,12 @@ package StepDefination_195;
 
 import TestComponent.BaseTest;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.ITestResult;
-import rahulshettyAcademy.LandingPage;
-import rahulshettyAcademy.ProductCatalogPage;
+import rahulshettyAcademy.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class StepDefinationImpl extends BaseTest {
     public LandingPage landingPage;
     public ProductCatalogPage productCatalogPage;
+    public ConfirmationPage confirmationPage;
 
     @Given("I landedon Ecommerce Page")
     public void I_landedon_Ecommerce_Page() throws IOException {
@@ -34,6 +36,31 @@ public class StepDefinationImpl extends BaseTest {
          productCatalogPage.addProductToCart(productName);
 
      }
+
+     @When("^Checkout (.+) and submit the order$")
+     public void checkout_and_submit_the_order(String productName) throws InterruptedException {
+         CartPage cartPage= productCatalogPage.gotoCartPage();
+
+         Boolean match=cartPage.VerifyProductDisplay(productName);
+         Assert.assertTrue(match);
+         CheckoutPage checkoutPage=cartPage.goToCheckout();
+
+         checkoutPage.setSelectCountry("india");
+          confirmationPage =checkoutPage.submitOrder();
+     }
+
+     @Then("{string} message is displayed on ConfirmationPage")
+     public void message_displayed_confirmationPage(String string){
+         String confirmMsg=confirmationPage.getConformationMesssage();
+         System.out.println(confirmMsg);
+         Assert.assertTrue(confirmMsg.equalsIgnoreCase(string));
+
+
+
+
+     }
+
+
 
 
 
